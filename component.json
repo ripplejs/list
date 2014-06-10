@@ -1,0 +1,15 @@
+{
+  "name": "list",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "ripplejs/array-observer": "*"
+  },
+  "development": {
+    "component/assert": "*",
+    "ripplejs/ripple": "remove-scope"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}
