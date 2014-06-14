@@ -1,5 +1,5 @@
 var assert = require('assert');
-var createList = require('list');
+var createList = require('list').list;
 var ripple = require('ripple');
 
 var ListItem = ripple('<li>{{name}}</li>')

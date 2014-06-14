@@ -1,16 +1,42 @@
 var observer = require('array-observer');
+var each = require('each');
+
+/**
+ * Export the plugin. It takes a view property key and a
+ * View for child elements. When the view is created a list
+ * will be made for the array at that key.
+ *
+ * @param {String} key
+ * @param {View} Item
+ *
+ * @return {Function}
+ */
+
+module.exports = exports = function() {
+  return function(View) {
+    View.on('created', function(view){
+      each(View.attrs, function(name, options) {
+        if (!options.map) return;
+        var List = exports.list(options.view);
+        var list = new List(view[options.map]);
+        view.on('destroying', list.destroy.bind(list));
+        view[name] = list;
+      });
+    });
+  };
+};
 
 /**
  * Create a new List contructor that
  * can be used to create new lists using
  * a certain type of view.
  *
- * @param {View} Item
+ * @param {View} View
  *
  * @return {Function}
  */
 
-module.exports = function(Item) {
+exports.list = function(View) {
 
   function List(items) {
     this.el = document.createDocumentFragment();
@@ -30,10 +56,10 @@ module.exports = function(Item) {
   List.prototype.add = function(obj, index) {
     var item;
     if (Object(obj) !== obj) {
-      item = new Item({ value: obj });
+      item = new View({ value: obj });
     }
     else {
-      item = new Item(obj);
+      item = new View(obj);
     }
     if (index < this.el.children.length) {
       this.items.splice(index, 0, item);

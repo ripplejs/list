@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "keywords": [],
   "dependencies": {
-    "ripplejs/array-observer": "*"
+    "ripplejs/array-observer": "*",
+    "component/each": "*"
   },
   "development": {
     "component/assert": "*",
-    "ripplejs/ripple": "remove-scope"
+    "ripplejs/ripple": "0.5.0"
   },
   "scripts": [
     "index.js"
